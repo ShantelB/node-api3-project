@@ -13,7 +13,7 @@ router.post('/', validateUser, (req, res) => {
                 res.status(201).json(post)
            })
            .catch(error => {
-               res.status(500).json({ error: "There was an error while saving the post to the database"})
+               res.status(500).json({ error: "There was an error while saving the user to the database"})
            })
 });
 

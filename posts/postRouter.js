@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validatePostId, (req, res) => {
   // do your magic!
   postdb.getById(req.params.id)
   .then(post =>{
@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
   })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validatePostId, (req, res) => {
   // do your magic!
   postdb.remove(req.params.id)
   .then(post =>{
@@ -43,7 +43,7 @@ router.delete('/:id', (req, res) => {
   })
 
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validatePostId, (req, res) => {
   // do your magic!
   if(!req.body){
     res.status(400).json({message: "provide text for the post." })
@@ -66,6 +66,7 @@ router.put('/:id', (req, res) => {
 function validatePostId(req, res, next) {
   // do your magic!
 const { id } = req.params
+
 postdb.getById(id)
 .then(post => {
   req.post = post
